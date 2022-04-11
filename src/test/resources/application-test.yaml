@@ -1,0 +1,19 @@
+
+server:
+  port: 8888
+
+logging:
+  level:
+    root: info
+
+spring:
+  security:
+    basic:
+      enabled: true
+    user:
+      name: coding
+      password: coding123
+
+fileserver:
+  home: /Users/dushaohua/test/
+

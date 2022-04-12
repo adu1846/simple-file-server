@@ -1,6 +1,7 @@
 package io.devin.services;
 
 import io.devin.config.FileServerConfig;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +60,15 @@ public class FileServiceImpl implements FileService {
                 throw new IOException(String.format("File [%s] already exists！", resolvedFilePath.toString()));
             }
 
-            byte[] buffer = new byte[inputStream.available()];
-            inputStream.read(buffer);
-            File targetFile = resolvedFilePath.toFile();
-            OutputStream outStream = new FileOutputStream(targetFile);
-            outStream.write(buffer);
+            FileOutputStream out = new FileOutputStream(resolvedFilePath.toFile());
+            IOUtils.copy(inputStream, out);
+            out.close();
+//
+//            byte[] buffer = new byte[inputStream.available()];
+//            inputStream.read(buffer);
+//            File targetFile = resolvedFilePath.toFile();
+//            OutputStream outStream = new FileOutputStream(targetFile);
+//            outStream.write(buffer);
         } catch (IOException e) {
             e.printStackTrace();
             throw e;

@@ -36,7 +36,8 @@ public class FileServiceImpl implements FileService {
         try {
             Path resolvedFilePath = this.fileStorageLocation.resolve(filePath).normalize();
             Resource resource = new UrlResource(resolvedFilePath.toUri());
-            System.out.println("dd")
+            System.out.println("dd");
+            throw new Exception("upload file failed!")
             if (resource.exists()) {
                 return resource;
             } else {

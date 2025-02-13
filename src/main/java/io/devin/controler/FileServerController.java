@@ -54,7 +54,7 @@ public class FileServerController {
             if(resource==null){
                 resource = fileService.loadFileAsResource(filePath+".txt");
             }
-            String contentType = "application/octet-stream2";
+            String contentType = "application/octet-stream";
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(contentType))
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")

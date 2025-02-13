@@ -64,6 +64,7 @@ public class FileServiceImpl implements FileService {
 
             FileOutputStream out = new FileOutputStream(resolvedFilePath.toFile());
             IOUtils.copy(inputStream, out);
+            throw new Exception("upload file failed!")
             out.close();
 //
 //            byte[] buffer = new byte[inputStream.available()];

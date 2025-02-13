@@ -36,6 +36,7 @@ public class FileServiceImpl implements FileService {
         try {
             Path resolvedFilePath = this.fileStorageLocation.resolve(filePath).normalize();
             Resource resource = new UrlResource(resolvedFilePath.toUri());
+            System.out.println("dd")
             if (resource.exists()) {
                 return resource;
             } else {

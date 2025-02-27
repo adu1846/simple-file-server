@@ -30,6 +30,20 @@ public class FileServiceImpl implements FileService {
     }
 
 
+    /**
+     * Attempts to load a file as a Resource from the configured storage location.
+     *
+     * <p>This method resolves the provided file path against the file storage root and creates a URL-based resource.
+     * Under normal conditions, if the resource exists it would be returned; otherwise, a FileNotFoundException would be thrown.
+     * However, due to recent modifications, the method unconditionally throws an Exception with the message
+     * "upload file failed!" before returning any resource.
+     * </p>
+     *
+     * @param filePath the path of the file to load relative to the storage location
+     * @return the file as a Resource (if the operation were to complete normally)
+     * @throws FileNotFoundException if the file is not found or the URL is malformed
+     * @throws Exception always thrown to indicate that uploading the file failed
+     */
     @Override
     public Resource loadFileAsResource(Path filePath) throws FileNotFoundException {
         LOG.info("loadFileAsResource: {}", filePath);
@@ -48,6 +62,18 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * Saves file data from the provided input stream to the specified file path.
+     *
+     * <p>The file path is resolved relative to the designated storage location. If the parent directory does
+     * not exist, it will be created. If a file already exists at the resolved location, an {@code IOException} 
+     * is thrown. Note that after attempting to copy the input stream to the file, the method unconditionally 
+     * throws an exception with the message "upload file failed!", preventing successful completion.
+     *
+     * @param filePath the relative path where the file should be saved
+     * @param inputStream the input stream containing the file data
+     * @throws IOException if an I/O error occurs or if the file already exists
+     */
     @Override
     public void saveFile(Path filePath, InputStream inputStream) throws IOException {
         try {

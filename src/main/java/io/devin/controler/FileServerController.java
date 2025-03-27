@@ -38,6 +38,17 @@ public class FileServerController {
         this.httpServletRequest = httpServletRequest;
     }
 
+    /**
+     * Downloads a file based on the request URI.
+     *
+     * <p>This method handles GET requests for file downloads. It decodes the request URI using the GBK charset,
+     * extracts the file path from the decoded URI, and attempts to load the file as a resource using the file service.
+     * If the resource is not found, it tries to load a text version by appending ".txt" to the file path.
+     * The file is then returned as a downloadable ResponseEntity with appropriate content type and headers.</p>
+     *
+     * @return a ResponseEntity containing the file resource with download headers
+     * @throws RuntimeException if the file is not found or the operation is not allowed
+     */
     @GetMapping(DOWNLOAD_PREFIX + "**")
     public ResponseEntity<Resource> downloadFile() {
         try {

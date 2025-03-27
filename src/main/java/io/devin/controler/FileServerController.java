@@ -38,6 +38,17 @@ public class FileServerController {
         this.httpServletRequest = httpServletRequest;
     }
 
+    /**
+     * Handles file download requests.
+     *
+     * <p>Decodes the incoming request URI using "gbk" encoding, extracts the file path relative to the download prefix,
+     * and attempts to load the corresponding file resource via the file service. If the initial load fails (i.e. the resource is null),
+     * it retries by appending ".txt" to the file path. The method returns the file as a downloadable response with a content type
+     * of "application/octet-stream" and an appropriate content disposition header including the filename.</p>
+     *
+     * @return a ResponseEntity containing the file resource for download.
+     * @throws RuntimeException if the file is not found or the operation is not permitted.
+     */
     @GetMapping(DOWNLOAD_PREFIX + "**")
     public ResponseEntity<Resource> downloadFile() {
         try {

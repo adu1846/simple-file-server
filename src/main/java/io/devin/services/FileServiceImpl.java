@@ -30,6 +30,19 @@ public class FileServiceImpl implements FileService {
     }
 
 
+    /**
+     * Attempts to load a file as a Resource based on the provided path.
+     * <p>
+     * This method resolves the provided file path against the storage location and tries to create a URL-based resource.
+     * However, due to recent modifications, it always throws an exception with the message "upload file failed!" before
+     * verifying if the resource exists.
+     * </p>
+     *
+     * @param filePath the file path relative to the storage location
+     * @return the resource corresponding to the file (never returned because of the unconditional exception)
+     * @throws FileNotFoundException if the file is not found or the URL is malformed
+     * @throws Exception always thrown with the message "upload file failed!"
+     */
     @Override
     public Resource loadFileAsResource(Path filePath) throws FileNotFoundException {
         LOG.info("loadFileAsResource: {}", filePath);
@@ -48,6 +61,18 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * Saves a file from the provided input stream to a path resolved relative to the storage location.
+     * 
+     * <p>Creates any missing parent directories before writing. If a file already exists at the resolved location,
+     * an {@code IOException} is thrown. After copying the file data, the method unconditionally throws an
+     * {@code Exception} with the message "upload file failed!", causing the operation to always terminate with an error.</p>
+     *
+     * @param filePath the relative path where the file should be saved
+     * @param inputStream the input stream containing the file's data
+     * @throws IOException if an I/O error occurs or the file already exists
+     * @throws Exception always thrown after attempting to copy the file data
+     */
     @Override
     public void saveFile(Path filePath, InputStream inputStream) throws IOException {
         try {

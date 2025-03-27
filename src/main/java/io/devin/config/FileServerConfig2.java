@@ -13,6 +13,11 @@ public class FileServerConfig {
     @Value("${fileserver.home}")
     private String home;
 
+    /**
+     * Retrieves the configured file server home directory.
+     *
+     * @return the file server home directory path
+     */
     public String getHome() {
         System.out.
         return home;

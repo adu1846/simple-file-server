@@ -81,7 +81,7 @@ public class FileServerController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (OperationNotAllowedException e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().build();
         }
     }
 

@@ -47,10 +47,17 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void saveFile(Path filePath, InputStream inputStream) throws IOException {
+    public void saveFile(Path filePath, InputStream inputStream) throws IOException, OperationNotAllowedException {
         try {
             LOG.info("saveFile: {}", filePath);
             Path resolvedFilePath = this.fileStorageLocation.resolve(filePath).normalize();
+
+            // Validate file extension - only allow .zip files
+            String fileName = resolvedFilePath.getFileName().toString();
+            if (!fileName.toLowerCase().endsWith(".zip")) {
+                throw new OperationNotAllowedException("Only .zip files are allowed for upload");
+            }
+
             Path parent = resolvedFilePath.getParent();
             if (Files.notExists(parent)){
                 Files.createDirectories(parent);
